@@ -26,4 +26,17 @@ ORDER BY total_spent DESC;
 for row in cur.fetchall():
     print(row)
 
+
+# (c) GROUP BY with HAVING: cities where avg order > 5000
+print("\nCities with avg order > 5000:")
+cur.execute("""
+SELECT c.city, AVG(o.amount) AS avg_amount
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.city
+HAVING AVG(o.amount) > 5000;
+""")
+for row in cur.fetchall():
+    print(row)
+
 conn.close()
